@@ -1,4 +1,4 @@
-GET http://localhost:8880/hello
+GET http://localhost:8880/ebook/getAllEbook
 Accept: application/json
 
 ###

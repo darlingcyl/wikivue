@@ -1,5 +1,7 @@
 package com.frank.wiki;
 
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
@@ -9,10 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 @SpringBootApplication
 @RestController
+//@MapperScan("com.frank.wiki")
 public class App {
     private static final Logger LOG = LoggerFactory.getLogger(App.class);
-//    @value("${driverName:man}")
-//   String name;
+    @Value("${driverName:man}")
+   String name;
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(App.class);
         Environment env = app.run(args).getEnvironment();
@@ -21,6 +24,6 @@ public class App {
     }
     @GetMapping("/hello")
     public String hello() {
-        return "hello";
+        return "hello"+name;
     }
 }
