@@ -57,6 +57,6 @@ public class EbookController {
             resp.setMessage("查询成功");
             resp.setContent(list);
         }
-        return  resp;
+        return resp;
     }
 }

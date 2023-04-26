@@ -2,10 +2,12 @@ package com.frank.wiki.resp;
 
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-    @Getter
-    @Setter
+//    @Getter
+//    @Setter
+@Data
 public class CommonResp<T> {
     /**
      * 业务上的成功或失败
