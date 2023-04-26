@@ -4,7 +4,7 @@ import com.frank.wiki.domain.Ebook;
 import com.frank.wiki.req.EbookReq;
 import com.frank.wiki.resp.CommonResp;
 import com.frank.wiki.resp.EbookResp;
-import com.frank.wiki.service.impl.EbookService;
+import com.frank.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

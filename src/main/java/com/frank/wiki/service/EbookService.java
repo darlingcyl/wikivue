@@ -1,4 +1,4 @@
-package com.frank.wiki.service.impl;
+package com.frank.wiki.service;
 
 import com.frank.wiki.domain.Ebook;
 import com.frank.wiki.domain.EbookExample;
@@ -8,6 +8,7 @@ import com.frank.wiki.resp.EbookResp;
 import com.frank.wiki.util.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -35,7 +36,10 @@ public class EbookService {
     public List<EbookResp> getEbook(EbookReq ebookReq){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
-        criteria.andNameLike("%"+ebookReq.getName()+"%");
+//        criteria.andNameLike("%"+ebookReq.getName()+"%");
+        if (!ObjectUtils.isEmpty(ebookReq.getName())){
+            criteria.andNameLike("%"+ebookReq.getName()+"%");
+        }
         // 这里查出来的是Ebook，里面字段和表字段是一样的，但是我们返回出去的是响应封装类，因此要转化一下
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
