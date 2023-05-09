@@ -3,8 +3,10 @@ package com.frank.wiki.mapper;
 import com.frank.wiki.domain.Demo;
 import com.frank.wiki.domain.DemoExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface DemoMapper {
     long countByExample(DemoExample example);
 

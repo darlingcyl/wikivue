@@ -3,8 +3,10 @@ package com.frank.wiki.mapper;
 import com.frank.wiki.domain.EbookSnapshot;
 import com.frank.wiki.domain.EbookSnapshotExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface EbookSnapshotMapper {
     long countByExample(EbookSnapshotExample example);
 
