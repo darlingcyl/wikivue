@@ -70,6 +70,9 @@ public class EbookService {
         if (!ObjectUtils.isEmpty(ebookReq.getName())){
             criteria.andNameLike("%"+ebookReq.getName()+"%");
         }
+        if(!ObjectUtils.isEmpty(ebookReq.getCategoryId2())){ // 根据二级分类查询内容,带条件
+            criteria.andCategory2IdEqualTo(ebookReq.getCategoryId2());
+        }
         // 这里查出来的是Ebook，里面字段和表字段是一样的，但是我们返回出去的是响应封装类，因此要转化一下
         PageHelper.startPage(ebookReq.getPage(),ebookReq.getSize());// 1代码从第几页查，3代表每页显示3条数据.
 // 需要注意的是，这行代码只对遇到的第一个select查询有用，因此在使用时，想对那个select分页就写在它的上一行

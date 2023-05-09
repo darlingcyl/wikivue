@@ -1,21 +1,13 @@
-package com.frank.wiki.req;
+package com.frank.wiki.resp;
 
-import lombok.Getter;
-import lombok.Setter;
-
-/**
- * 假设用户可能会把id 和名字作为查询条件
- * 当然真实情况下可能远远不止两个
- */
-//@Setter
-//@Getter
-public class EbookQueryReq extends PageReq{
+public class CategoryResp {
     private Long id;
+
+    private Long parent;
 
     private String name;
 
-    private Long categoryId2;
-
+    private Integer sort;
 
     public Long getId() {
         return id;
@@ -23,6 +15,14 @@ public class EbookQueryReq extends PageReq{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getParent() {
+        return parent;
+    }
+
+    public void setParent(Long parent) {
+        this.parent = parent;
     }
 
     public String getName() {
@@ -33,12 +33,12 @@ public class EbookQueryReq extends PageReq{
         this.name = name;
     }
 
-    public Long getCategoryId2() {
-        return categoryId2;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setCategoryId2(Long categoryId2) {
-        this.categoryId2 = categoryId2;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     @Override
@@ -48,7 +48,9 @@ public class EbookQueryReq extends PageReq{
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", parent=").append(parent);
         sb.append(", name=").append(name);
+        sb.append(", sort=").append(sort);
         sb.append("]");
         return sb.toString();
     }
