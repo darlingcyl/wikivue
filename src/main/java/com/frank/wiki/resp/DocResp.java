@@ -1,6 +1,6 @@
 package com.frank.wiki.resp;
 
-public class DocQueryResp {
+public class DocResp {
     private Long id;
 
     private Long ebookId;

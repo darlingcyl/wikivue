@@ -7,12 +7,12 @@ import lombok.Setter;
  * 假设用户可能会把id 和名字作为查询条件
  * 当然真实情况下可能远远不止两个
  */
-@Setter
-@Getter
+//@Setter
+//@Getter
 public class DocQueryReq extends PageReq{
-    private Long id;
-
-    private String name;
+//    private Long id;
+//
+//    private String name;
 //
 //
 //    public Long getId() {
@@ -38,8 +38,8 @@ public class DocQueryReq extends PageReq{
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
+//        sb.append(", id=").append(id);
+//        sb.append(", name=").append(name);
         sb.append("]");
         return sb.toString();
     }

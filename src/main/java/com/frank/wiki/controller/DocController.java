@@ -1,46 +1,57 @@
 package com.frank.wiki.controller;
 
-
 import com.frank.wiki.req.DocQueryReq;
 import com.frank.wiki.req.DocSaveReq;
 import com.frank.wiki.resp.CommonResp;
-import com.frank.wiki.resp.DocQueryResp;
+import com.frank.wiki.resp.DocResp;
 import com.frank.wiki.resp.PageResp;
 import com.frank.wiki.service.DocService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * 对Doc表的操作都在此接口下执行
+ * 对doc表的操作都在此接口下执行
  */
 @RestController
-@RequestMapping("/Doc")
+@RequestMapping("/doc")
 public class DocController {
     @Resource
-    DocService DocService;
+    DocService docService;
     /**
      * 查询所有文档接口
      */
-    @GetMapping("/getAllDoc")
-    public CommonResp<PageResp<DocQueryResp>> selectAllDoc(@Valid DocQueryReq DocReq){
+    @GetMapping("/all")
+    public CommonResp all(){
+        CommonResp<List<DocResp>> resp = new CommonResp<>();
+        List<DocResp> list = docService.all();
+        resp.setContent(list);
+        return resp;
+    }
 
-        PageResp<DocQueryResp> Doclist = DocService.getAll(DocReq);
-        CommonResp<PageResp<DocQueryResp>> resp = new CommonResp<PageResp<DocQueryResp>>();
-        resp.setContent(Doclist);
-        resp.setMessage("获取所有文档信息成功，并且分页");
-        resp.setSuccess(true);
-//
-//        if (Doclist.isEmpty()){
-//            resp.setSuccess(false);
-//            resp.setMessage("查询失败！返回数据为空");
-//            resp.setContent(list);
-//        }else {
-//            resp.setSuccess(true);
-//            resp.setMessage("查询成功");
-//            resp.setContent(list);
-//        }
+    /**
+     * 根据电子书id查询文档的方法,结果已经排好序
+     */
+    @GetMapping("/all/{ebookId}")
+    public CommonResp all(@PathVariable Long ebookId){
+        CommonResp<List<DocResp>> resp = new CommonResp<List<DocResp>>();
+        List<DocResp> list = docService.all(ebookId);
+        resp.setMessage("查询成功");
+        resp.setContent(list);
+        return  resp;
+    }
+    /**
+     * 查询文档内容
+     */
+    @GetMapping("/find-content/{id}")
+    public CommonResp findContent(@PathVariable Long id){
+        CommonResp<String> resp = new CommonResp<>();
+        String content = docService.findContent(id);
+        resp.setContent(content);
         return resp;
     }
 
@@ -49,10 +60,10 @@ public class DocController {
      * 封装请求参数的模拟方法
      */
     @GetMapping("/getDoc")
-    public CommonResp<PageResp<DocQueryResp>> selectDoc(@Valid DocQueryReq DocReq){
-        PageResp<DocQueryResp> Doclist = DocService.getDoc(DocReq);
-        CommonResp<PageResp<DocQueryResp>> resp = new CommonResp<PageResp<DocQueryResp>>();
-//        if (Doclist.isEmpty()){
+    public CommonResp<PageResp<DocResp>> selectDoc(@Valid DocQueryReq docReq){
+        PageResp<DocResp> doclist = docService.getDoc(docReq);
+        CommonResp<PageResp<DocResp>> resp = new CommonResp<PageResp<DocResp>>();
+//        if (doclist.isEmpty()){
 //            resp.setSuccess(false);
 //            resp.setMessage("查询失败！返回数据为空");
 //            resp.setContent(list);
@@ -62,7 +73,7 @@ public class DocController {
 //            resp.setMessage("查询成功");
 //            resp.setContent(list);
 //        }
-        resp.setContent(Doclist);
+        resp.setContent(doclist);
         resp.setMessage("获取所有文档信息成功，并且分页");
         resp.setSuccess(true);
         return resp;
@@ -76,14 +87,23 @@ public class DocController {
     @PostMapping("/save")
     public CommonResp save(@RequestBody DocSaveReq req) {
         CommonResp resp = new CommonResp<>();
-        DocService.save(req);
+        docService.save(req);
         return resp;
     }
 
-    @DeleteMapping("/delete/{id}")
-    public CommonResp delete(@PathVariable Long id) {
+    @DeleteMapping("/delete/{idsStr}")
+    public CommonResp delete(@PathVariable String idsStr) {
+        List idList = Arrays.stream(idsStr.split(",")).map(Long::valueOf).collect(Collectors.toList());
+//        List<String> stringList = Arrays.asList(idsStr.split(","));
         CommonResp resp = new CommonResp<>();
-        DocService.delete(id);
+        docService.delete(idList);
+        return resp;
+    }
+
+    @DeleteMapping("/del/{id}")
+    public CommonResp del(@PathVariable Long id) {
+        CommonResp resp = new CommonResp<>();
+        docService.del(id);
         return resp;
     }
 }
