@@ -1,5 +1,6 @@
 package com.frank.wiki.req;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
  */
 //@Setter
 //@Getter
+    @Data
 public class DocQueryReq extends PageReq{
 //    private Long id;
 //
@@ -32,6 +34,19 @@ public class DocQueryReq extends PageReq{
 //    }
 //
 
+    private Long id;
+
+    private Long ebookId;
+
+    private Long parent;
+
+    private String name;
+
+    private Integer sort;
+
+    private Integer viewCount;
+
+    private Integer voteCount;
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
